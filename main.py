@@ -1,11 +1,12 @@
 from tkinter import *
+import tkinter as tk
 from PIL import ImageTk, Image
 from random import randint
 import random
 
 root = Tk()
 root.title('CyberKarty!')
-root.geometry('800x800')
+root.geometry('1300x800')
 
 # Create definitions function
 def definicje_zewnetrzne():
@@ -15,17 +16,27 @@ def definicje_zewnetrzne():
 def wyniki_gracz():
     pass
 
-# Create state capital answers
+# Activate round
+def activate_round():
+    global clock
+    clock = 0
+    add_second()
+
+# Create cyberkarty answers
 def cyberkarty_answer():
     if capital_radio.get() == our_cyber_karty[answer]:
         response = "Prawidłowa odpowiedź!"
         cyber_karty()
     else:
         response = "Błędna odpowiedź! Spróbuj ponownie"
+
     answer_label_capitals.config(text=response)
         
 #Create State Capital Flashcard Function
 def cyber_karty():
+    global clock
+    clock = 0
+    
     # Hide previous frames
     hide_all_frames()
     cyber_karty_frame.pack(fill="both", expand=1)
@@ -94,7 +105,7 @@ def cyber_karty():
         if count == 1:
             answer = our_numbers[rando]
             global state_text
-            state_text = definitions_cyber[answer_list[0]]
+            state_text = definitions_cyber[answer_list[0]].capitalize()
             show_state.config(text=state_text)
             
         #Remove from old list
@@ -131,6 +142,22 @@ def cyber_karty():
     answer_label_capitals = Label(cyber_karty_frame, text="", font=("Helvetica", 15))
     answer_label_capitals.pack(pady=15)
 
+    global clock_label
+    clock_label = Label(cyber_karty_frame, text=clock)
+    clock_label.pack(pady=20)
+
+    activate_round()
+
+    
+
+# Add clock to game
+def add_second():
+    global clock
+    clock += 1
+    global clock_label
+    clock_label["text"] = clock
+    clock_label.after(1000, add_second)
+
 #Hide all previous frames
 def hide_all_frames():
     # Loop through and destroy all children in previous frames
@@ -158,7 +185,7 @@ cyber_menu.add_command(label="Exit", command=root.quit)
 
 # Create our Frames
 state_frame = Frame(root, width=500, height=500, bg="white")
-global cyber_karty_frame
 cyber_karty_frame = Frame(root, width=500, height=500)
+
 
 root.mainloop()
