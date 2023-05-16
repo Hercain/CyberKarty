@@ -6,8 +6,9 @@ import random
 
 root = Tk()
 root.title('CyberKarty!')
-root.geometry('1300x800')
+root.geometry('1200x500')
 
+'''
 # Create definitions function
 def definicje_zewnetrzne():
     pass
@@ -15,6 +16,8 @@ def definicje_zewnetrzne():
 # Create player score function
 def wyniki_gracz():
     pass
+
+    '''
 
 # Activate round
 def activate_round():
@@ -40,7 +43,6 @@ def cyber_karty():
     # Hide previous frames
     hide_all_frames()
     cyber_karty_frame.pack(fill="both", expand=1)
-    #my_label = Label(cyber_karty_frame, text="Capitals").pack()
     
     global show_state
     show_state = Label(cyber_karty_frame)
@@ -161,13 +163,9 @@ def add_second():
 #Hide all previous frames
 def hide_all_frames():
     # Loop through and destroy all children in previous frames
-    for widget in state_frame.winfo_children():
-        widget.destroy()
-
     for widget in cyber_karty_frame.winfo_children():
         widget.destroy()
 
-    state_frame.pack_forget() 
     cyber_karty_frame.pack_forget() 
 
 #Create our menu
@@ -177,14 +175,13 @@ root.config(menu=my_menu)
 #Create Geography menu items
 cyber_menu = Menu(my_menu)
 my_menu.add_cascade(label="Moduły", menu=cyber_menu)
-cyber_menu.add_command(label="Dodaj definicję", command=definicje_zewnetrzne)
-cyber_menu.add_command(label="Moje wyniki", command=wyniki_gracz)
+#cyber_menu.add_command(label="Dodaj definicję", command=definicje_zewnetrzne)
+#cyber_menu.add_command(label="Moje wyniki", command=wyniki_gracz)
 cyber_menu.add_command(label="CyberKarty", command=cyber_karty)
 cyber_menu.add_separator()
-cyber_menu.add_command(label="Exit", command=root.quit)
+cyber_menu.add_command(label="Wyjście", command=root.quit)
 
 # Create our Frames
-state_frame = Frame(root, width=500, height=500, bg="white")
 cyber_karty_frame = Frame(root, width=500, height=500)
 
 
